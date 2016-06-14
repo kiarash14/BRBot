@@ -1,12 +1,12 @@
-local Redis = require 'redis'
-local FakeRedis = require 'fakeredis'
+local Redis = (loadfile "./libs/lua-redis.lua")()
+local FakeRedis = (loadfile "./libs/fakeredis.lua")()
 
 local params = {
   host = '127.0.0.1',
   port = 6379,
 }
 
--- Overwrite HGETALL
+-- Overwrite HGETALL 
 Redis.commands.hgetall = Redis.command('hgetall', {
   response = function(reply, command, ...)
     local new_reply = { }
